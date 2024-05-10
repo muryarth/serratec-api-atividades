@@ -24,7 +24,7 @@ import br.org.serratec.exerciciojpa.repository.ProdutoRepository;
 public class ProdutoController {
 
 	@Autowired
-	private ProdutoRepository produtoRepository;
+	private ProdutoRepository produtoRepository; // Uso de injeção de dependência
 
 	@GetMapping
 	public List<Produto> listar() {
