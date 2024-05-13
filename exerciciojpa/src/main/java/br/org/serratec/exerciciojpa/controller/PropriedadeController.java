@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/propriedade")
+@RequestMapping("/propriedades")
 public class PropriedadeController {
 	@Value("${minha-propriedade}")
 	private String propriedade;
