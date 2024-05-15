@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/propriedades")
 public class PropriedadeController {
-	@Value("${minha-propriedade}")
-	private String propriedade;
 
-	@GetMapping
+	@Value("${minha-propriedade}") // Anotação para pegar um valor de application.properties
+	private String propriedade; // Variável que guarda o valor vindo "minha-propriedade"
+
+	@GetMapping // GET para retornar propriedade
 	public String retornaMinhaPropriedade() {
 		return propriedade;
 	}
