@@ -55,9 +55,12 @@ public class VeiculoController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Veiculo> atualizar(@PathVariable Long id, @RequestBody Veiculo veiculo) {
-		if (veiculoRepository.existsById(id)) { // Verifica se já tem algum elemento com esse id, se não houver, não faz
-												// sentido fazer uma tentativa de PUT
-			System.out.println(veiculo);
+		if (veiculoRepository.existsById(id)) {
+			/*
+			 * Verifica se já tem algum elemento com esse id, se não houver, não faz sentido
+			 * fazer uma tentativa de PUT
+			 */
+			
 			veiculo.setId(id);
 			veiculo = veiculoRepository.save(veiculo);
 			return ResponseEntity.ok(veiculo);
