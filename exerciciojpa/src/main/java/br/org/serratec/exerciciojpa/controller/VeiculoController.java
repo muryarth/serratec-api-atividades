@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.exerciciojpa.model.Veiculo;
 import br.org.serratec.exerciciojpa.repository.VeiculoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/veiculos")
@@ -25,11 +26,6 @@ public class VeiculoController {
 
 	@Autowired
 	private VeiculoRepository veiculoRepository;
-
-	// @GetMapping
-	// public List<Veiculo> listar() {
-	// return veiculoRepository.findAll();
-	// }
 
 	@GetMapping
 	public ResponseEntity<List<Veiculo>> listar() {
@@ -49,12 +45,12 @@ public class VeiculoController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) // Garante que o status de retorno dessa requisição seja um "201 Created"
-	public Veiculo inserir(@RequestBody Veiculo veiculo) {
+	public Veiculo inserir(@Valid @RequestBody Veiculo veiculo) {
 		return veiculoRepository.save(veiculo);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Veiculo> atualizar(@PathVariable Long id, @RequestBody Veiculo veiculo) {
+	public ResponseEntity<Veiculo> atualizar(@PathVariable Long id,@Valid @RequestBody Veiculo veiculo) {
 		if (veiculoRepository.existsById(id)) {
 			/*
 			 * Verifica se já tem algum elemento com esse id, se não houver, não faz sentido

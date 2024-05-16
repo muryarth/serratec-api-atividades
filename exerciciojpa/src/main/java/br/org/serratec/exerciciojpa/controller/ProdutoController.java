@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.exerciciojpa.model.Produto;
 import br.org.serratec.exerciciojpa.repository.ProdutoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/produtos")
@@ -43,13 +44,13 @@ public class ProdutoController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Produto inserir(@RequestBody Produto produto) {
+	public Produto inserir(@Valid @RequestBody Produto produto) {
 		Produto produtoSalvo = produtoRepository.save(produto);
 		return produtoSalvo;
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produto) {
+	public ResponseEntity<Produto> atualizar(@PathVariable Long id,@Valid @RequestBody Produto produto) {
 		if (!produtoRepository.existsById(id)) { // Evita o put criar um novo objeto
 			return ResponseEntity.notFound().build();
 		}

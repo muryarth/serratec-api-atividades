@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,27 +14,37 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "produto")
 public class Produto {
-	
-	@Id // Representa que esse atributo é a primary key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // Informa o incremento da primary key
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
 	private Long id;
-	
+
+	@NotBlank(message = "O preenchimento de *descricao* é obrigatório para *Produto*.")
+	@Size(max = 40, message = "Tamanho máximo 40")
 	@Column(name = "descricao", nullable = false, length = 40)
 	private String descricao;
-	
-	@Column
-	private BigDecimal valor;
-	
-	@Column(name = "data_cadastro")
-	@Temporal(TemporalType.DATE)
-	private Date dataCadastro;
 
-	// Command + 3 -> ggas -> Gera getters e setters
+	@NotNull(message = "O preenchimento de *preco* é obrigatório para *Produto*.")
+	@DecimalMax(value = "5000", message = "*preco* não pode ser maior que R${value}.00")
+	@DecimalMin(value = "10", message = "*preco* não pode ser menor que R${value}.00")
+	@Column(name = "valor", nullable = false)
+	private BigDecimal valor;
+
+	@NotNull(message = "O preenchimento de *dataCadastro* é obrigatório para *Produto*.")
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@Column(name = "data_cadastro", nullable = false)
+	private Date dataCadastro;
 
 	public Long getId() {
 		return id;

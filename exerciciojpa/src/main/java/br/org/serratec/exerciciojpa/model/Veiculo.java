@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Veiculo {
@@ -16,9 +18,13 @@ public class Veiculo {
 	@Column(name = "id_veiculo")
 	private Long id;
 
+	@NotBlank(message = "O preenchimento de *marca* é obrigatório para *Veiculo*.")
+	@Size(max = 12, message = "Tamanho máximo 12.")
 	@Column(name = "marca", nullable = false, length = 12)
 	private String marca;
 
+	@NotBlank(message = "O preenchimento de *modelo* é obrigatório para *Veiculo*.")
+	@Size(max = 12, message = "Tamanho máximo 12.")
 	@Column(name = "modelo", nullable = false, length = 12)
 	private String modelo;
 

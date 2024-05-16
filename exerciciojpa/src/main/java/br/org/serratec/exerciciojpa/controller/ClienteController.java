@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.exerciciojpa.model.Cliente;
 import br.org.serratec.exerciciojpa.repository.ClienteRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/clientes")
@@ -45,12 +46,12 @@ public class ClienteController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente inserir(@RequestBody Cliente cliente) {
+	public Cliente inserir(@Valid @RequestBody Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> atualizar(@PathVariable Long id,@Valid @RequestBody Cliente cliente) {
 
 		if (clienteRepository.existsById(id)) {
 			cliente.setId(id);

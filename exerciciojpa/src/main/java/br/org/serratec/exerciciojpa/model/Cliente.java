@@ -10,6 +10,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Cliente {
@@ -18,17 +23,25 @@ public class Cliente {
 	@Column(name = "id_cliente")
 	private Long id;
 
-	@Column(name = "nome", nullable = false, length = 60)
+	@NotBlank(message = "O preenchimento de *nome* é obrigatório para *Cliente*.")
+	@Size(max = 15, message = "Tamanho máximo 15.")
+	@Column(name = "nome", nullable = false, length = 15)
 	private String nome;
 
+	@NotBlank(message = "O preenchimento de *cpf* é obrigatório para *Cliente*.")
+	@Size(max = 11, message = "Tamanho máximo 11.")
 	@Column(name = "cpf", nullable = false, length = 11)
 	private String cpf;
 
-	@Column(name = "email", nullable = false, length = 50)
+	@NotBlank(message = "O preenchimento de *email* é obrigatório para *Cliente*.")
+	@Size(max = 15, message = "O campo email só aceita 15 caracteres.")
+	@Column(name = "email", nullable = false, length = 15)
 	private String email;
 
+	@NotNull(message = "O preenchimento de *dataNascimento* é obrigatório para *Cliente*.")
+	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nascimento", nullable = false)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy") // Formata a data
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date dataNascimento;
 
 	public Long getId() {
